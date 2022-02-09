@@ -1,24 +1,42 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { LoginScreen } from '../screens/LoginScreen';
 import { RegisterScreen } from '../screens/RegisterScreen';
 import { ProtectedScreen } from '../screens/ProtectedScreen';
+// import { HomeScreen } from '../screens/HomeScreen';
+import { AuthContext } from '../context/AuthContext';
 
 const Stack = createStackNavigator();
 
+
+
+
 export const Navigator = () => {
+    const { status } = useContext(AuthContext);
+    console.log(status);
     return (
         <Stack.Navigator
-        screenOptions={{
-            headerShown: false,
-            cardStyle:{
-                backgroundColor:'white'
-            }
-        }}
+            screenOptions={{
+                headerShown: false,
+                cardStyle: {
+                    backgroundColor: 'white'
+                }
+            }}
         >
-            <Stack.Screen name="LoginScreen" component={LoginScreen} />
-            <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
-            <Stack.Screen name="ProtectedScreen" component={ProtectedScreen} />
+            {
+                (status !== 'authenticated')
+                    ? (
+                        <>
+                            <Stack.Screen name="LoginScreen" component={LoginScreen} />
+                            <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
+                        </>
+                    ) : (
+                        <Stack.Screen name="ProtectedScreen" component={ProtectedScreen} />
+                    )
+            }
+
+
         </Stack.Navigator>
     );
 }
+

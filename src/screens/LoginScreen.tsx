@@ -1,25 +1,45 @@
-import React from 'react';
-import { Text, View, TextInput, Platform, KeyboardAvoidingView, Keyboard } from 'react-native';
+import React, { useContext, useEffect } from 'react';
+import { Text, View, TextInput, Platform, KeyboardAvoidingView, Keyboard, Alert } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Background } from '../components/Background';
 import { WhiteLogo } from '../components/WhiteLogo';
 import { useForm } from '../hooks/useForm';
 import { loginStyles } from '../theme/loginTheme';
 import { StackScreenProps } from '@react-navigation/stack';
+import { AuthContext } from '../context/AuthContext';
 
 
-interface Props extends StackScreenProps<any, any>{}
+interface Props extends StackScreenProps<any, any> { }
 
-export const LoginScreen = ({navigation}: Props) => {
+export const LoginScreen = ({ navigation }: Props) => {
+
+  const { signIn, errorMessage, removeError } = useContext(AuthContext);
 
   const { email, password, onChange } = useForm({
     email: '',
     password: ''
   });
 
+  useEffect(() => {
+    if (errorMessage.length === 0) return;
+    Alert.alert(
+      'Login incorrecto',
+      errorMessage,
+      [
+        {
+          text: 'Ok',
+          onPress: removeError
+        }
+      ]
+
+    );
+  }, [errorMessage]);
+
+
   const onLogin = () => {
-    console.log({email, password});
+    console.log({ email, password });
     Keyboard.dismiss();
+    signIn({ correo: email, password });
   }
 
   return (
@@ -41,7 +61,7 @@ export const LoginScreen = ({navigation}: Props) => {
             style={[loginStyles.inputField,
             (Platform.OS === 'ios') && loginStyles.inputFieldIOS]}
             selectionColor="white"
-            onChangeText={(value) => onChange(value,'email')}
+            onChangeText={(value) => onChange(value, 'email')}
             value={email}
             onSubmitEditing={onLogin}
             autoCapitalize='none'
@@ -56,7 +76,7 @@ export const LoginScreen = ({navigation}: Props) => {
             (Platform.OS === 'ios') && loginStyles.inputFieldIOS]}
             selectionColor="white"
             secureTextEntry
-            onChangeText={(value) => onChange(value,'password')}
+            onChangeText={(value) => onChange(value, 'password')}
             value={password}
             onSubmitEditing={onLogin}
             autoCapitalize='none'
