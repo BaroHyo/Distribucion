@@ -4,9 +4,8 @@ import { AuthContext } from '../context/AuthContext';
 
 export const ProtectedScreen = () => {
 
-    const { user, token, logOut} = useContext(AuthContext)
-
-
+    const { logOut} = useContext(AuthContext)
+        
     return (
         <View style={styles.container}>
             <Text style={styles.title}>ProtectedScreen</Text>
@@ -15,12 +14,7 @@ export const ProtectedScreen = () => {
                 color='#5856D6'
                 onPress={logOut}
             />
-            <Text>
-                {JSON.stringify(user, null, 5)}
-            </Text>
-            <Text>
-                {token}
-            </Text>
+            
         </View>
     );
 };

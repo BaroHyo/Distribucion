@@ -23,3 +23,10 @@ export interface Usuario {
     uid: string;
     img?: string;
 }
+
+export interface SimpleMenu{
+    id     : string;
+    name   : string;
+    picture: string;
+    color? : string;
+}

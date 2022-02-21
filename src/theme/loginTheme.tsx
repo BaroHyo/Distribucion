@@ -58,3 +58,24 @@ export const loginStyles = StyleSheet.create({
         borderRadius: 100
     }
 });
+
+export const globalStyles = StyleSheet.create({
+     
+    globalMargin:{
+        marginHorizontal: 20
+    },
+    fondoBG:{
+        width: 300,
+        height: 300,
+        position: 'absolute',
+        top: -100,
+        right: -100,
+        opacity: 0.2
+    },
+    title: {
+        fontSize: 35,
+        fontWeight: 'bold',
+        color: '#070808'
+    }
+
+});
