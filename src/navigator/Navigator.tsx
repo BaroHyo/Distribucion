@@ -2,10 +2,11 @@ import React, { useContext } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { LoginScreen } from '../screens/LoginScreen';
 import { RegisterScreen } from '../screens/RegisterScreen';
-// import { ProtectedScreen } from '../screens/ProtectedScreen';
 import { AuthContext } from '../context/AuthContext';
 import { LoadingScreen } from '../screens/LoadingScreen';
-import { HomeScreen } from '../screens/HomeScreen';
+import { MapScreen } from '../screens/MapScreen';
+import { PermissionsContext } from '../context/PermissionsContext';
+import { PermissionsScreen } from '../screens/PermissionsScreen';
 
 const Stack = createStackNavigator();
 
@@ -15,9 +16,17 @@ const Stack = createStackNavigator();
 export const Navigator = () => {
 
     const { status } = useContext(AuthContext);
+    const { permission } = useContext(PermissionsContext);
+
 
     if (status === 'checking') return <LoadingScreen />
 
+    if (status === 'authenticated'){
+        if (permission.locationStatus === 'unavailable') return <LoadingScreen />
+    }
+
+
+ 
     return (
         <Stack.Navigator
             screenOptions={{
@@ -35,12 +44,11 @@ export const Navigator = () => {
                             <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
                         </>
                     ) : (
-                    
-                       <Stack.Screen name="HomeScreen" component={HomeScreen} />
+                        (permission.locationStatus === 'granted')
+                            ? <Stack.Screen name="MapScreen" component={MapScreen} />
+                            : <Stack.Screen name="PermissionsScreen" component={PermissionsScreen} />
                     )
             }
-   {/*<Stack.Screen name="ProtectedScreen" component={ProtectedScreen} /> */} 
-
         </Stack.Navigator>
     );
 }
