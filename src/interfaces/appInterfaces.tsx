@@ -6,7 +6,7 @@ export interface LoginData {
 export interface RegisterData {
     correo: string;
     password: string;
-    nombre: string; 
+    nombre: string;
 }
 
 export interface LoginResponse {
@@ -24,9 +24,14 @@ export interface Usuario {
     img?: string;
 }
 
-export interface SimpleMenu{
-    id     : string;
-    name   : string;
+export interface SimpleMenu {
+    id: string;
+    name: string;
     picture: string;
-    color? : string;
+    color?: string;
+}
+
+export interface Location {
+    latitude: number;
+    longitude: number;
 }
