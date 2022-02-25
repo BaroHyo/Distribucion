@@ -7,6 +7,11 @@ import { LoadingScreen } from '../screens/LoadingScreen';
 import { MapScreen } from '../screens/MapScreen';
 import { PermissionsContext } from '../context/PermissionsContext';
 import { PermissionsScreen } from '../screens/PermissionsScreen';
+import { HomeScreen } from '../screens/HomeScreen';
+import { ClientesScreen } from '../screens/ClientesScreen';
+import { ImportacionesScreen } from '../screens/ImportacionesScreen';
+import { PedidosScreen } from '../screens/PedidosScreen';
+import { EntregasScreen } from '../screens/EntregasScreen';
 
 const Stack = createStackNavigator();
 
@@ -21,12 +26,12 @@ export const Navigator = () => {
 
     if (status === 'checking') return <LoadingScreen />
 
-    if (status === 'authenticated'){
+    if (status === 'authenticated') {
         if (permission.locationStatus === 'unavailable') return <LoadingScreen />
     }
 
 
- 
+
     return (
         <Stack.Navigator
             screenOptions={{
@@ -44,12 +49,22 @@ export const Navigator = () => {
                             <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
                         </>
                     ) : (
-                        (permission.locationStatus === 'granted')
-                            ? <Stack.Screen name="MapScreen" component={MapScreen} />
-                            : <Stack.Screen name="PermissionsScreen" component={PermissionsScreen} />
+                        <>
+                            <Stack.Screen name="HomeScreen" component={HomeScreen} />
+                            <Stack.Screen name="ClientesScreen" component={ClientesScreen} />
+                            <Stack.Screen name="ImportacionesScreen" component={ImportacionesScreen} />
+                            <Stack.Screen name="PedidosScreen" component={PedidosScreen} />
+                            <Stack.Screen name="EntregasScreen" component={EntregasScreen} />
+                            {
+                                (permission.locationStatus === 'granted')
+                                ? <Stack.Screen name="MapScreen" component={MapScreen} />
+                                : <Stack.Screen name="PermissionsScreen" component={PermissionsScreen} />
+                            }
+                        </>
                     )
             }
         </Stack.Navigator>
     );
 }
 
+ 

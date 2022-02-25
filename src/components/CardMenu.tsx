@@ -1,46 +1,45 @@
-import React, { useContext, useEffect, useRef, useState } from 'react'
+ import React, { useContext, useEffect, useRef, useState } from 'react'
 import { Dimensions, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import ImageColors from 'react-native-image-colors'
 import { AuthContext } from '../context/AuthContext';
-import { SimpleMenu } from '../interfaces/appInterfaces';
+import { MenuItem, SimpleMenu } from '../interfaces/appInterfaces';
 import { FadeInImage } from './FadeInImage';
+import { useNavigation } from '@react-navigation/core';
 
 
 const windowWidth = Dimensions.get('window').width;
 
 interface Props {
-    menu: SimpleMenu;
+    menuItem: MenuItem
 }
 
-export const CardMenu = ({ menu }: Props) => {
+export const CardMenu = ({ menuItem }: Props) => {
 
     const [bgColor, setBgColor] = useState('grey');
     const isMounted = useRef(true);
+    const navigation = useNavigation();
 
-    const { logOut} = useContext(AuthContext)
+ 
 
-
-    useEffect(() => {
+    /*useEffect(() => {
          ImageColors.getColors( menu.picture , { fallback: 'grey' })
              .then( colors => {
                   if ( !isMounted.current ) return;
                  ( colors.platform === 'android' )
                      ? setBgColor( colors.dominant || 'grey' )
-                     : setBgColor( /*colors.background || */'grey' )
+                     : setBgColor( colors.background ||'grey' )
  
              });
         return () => {
             isMounted.current = false
         }
 
-    }, [])
+    }, [])*/
 
     return (
         <TouchableOpacity
-            activeOpacity={0.9}
-            onPress={
-                logOut
-            }>
+            activeOpacity={0.0}
+            onPress={() => navigation.navigate( menuItem.components as any )}>
             <View style={{
                 ...styles.cardContainer,
                 width: windowWidth * 0.4,
@@ -48,9 +47,8 @@ export const CardMenu = ({ menu }: Props) => {
             }}>
                 <View>
                     <Text style={styles.name}>
-                        {menu.name}
-                        {'\n#' + menu.id}
-                    </Text>
+                        {menuItem.name}
+                     </Text>
                 </View>
                 <View style={styles.pokebolaContainer}>
                     <Image
@@ -58,10 +56,12 @@ export const CardMenu = ({ menu }: Props) => {
                         style={styles.pokebola}
                     />
                 </View>
-                <FadeInImage 
+              {/*
+              <FadeInImage 
                     uri={ menu.picture }
                     style={ styles.pokemonImage }
                 />
+              */}  
             </View>
 
         </TouchableOpacity>

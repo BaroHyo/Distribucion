@@ -35,3 +35,21 @@ export interface Location {
     latitude: number;
     longitude: number;
 }
+
+export interface Pedido{
+    idVendedor: number;
+    idPedido: number;
+    codigo: string;
+    idCliente: number;
+    nombreCliente: string;
+    fecha: Date;
+    totalVenta: number;
+    lati: number;
+    longi: number;
+}
+
+export interface MenuItem {
+    name: string;
+    icon: string;
+    components: string;
+}
