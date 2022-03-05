@@ -53,3 +53,10 @@ export interface MenuItem {
     icon: string;
     components: string;
 }
+
+export interface Ciente {
+    codigo: string;
+    nombre: string;
+    razonSocial: string;
+    nit: string;
+}

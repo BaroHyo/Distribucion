@@ -57,8 +57,8 @@ export const Navigator = () => {
                             <Stack.Screen name="EntregasScreen" component={EntregasScreen} />
                             {
                                 (permission.locationStatus === 'granted')
-                                ? <Stack.Screen name="MapScreen" component={MapScreen} />
-                                : <Stack.Screen name="PermissionsScreen" component={PermissionsScreen} />
+                                    ? <Stack.Screen name="MapScreen" component={MapScreen} />
+                                    : <Stack.Screen name="PermissionsScreen" component={PermissionsScreen} />
                             }
                         </>
                     )
@@ -67,4 +67,3 @@ export const Navigator = () => {
     );
 }
 
- 

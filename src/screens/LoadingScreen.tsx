@@ -6,11 +6,12 @@ export const LoadingScreen = () => {
     <View style={{
         flex:1,
         justifyContent:'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        backgroundColor: '#5856D6'
     }}>
         <ActivityIndicator
             size={50}
-            color="black"
+            color="white"
         />
     </View>
   )
